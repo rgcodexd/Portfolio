@@ -1,0 +1,706 @@
+:root {
+  /* Base Variables */
+  --bg-color: #fafafa;
+  --foreground: #252525;
+  --card-bg: #ffffff;
+  --card-foreground: #252525;
+  --border-color: #d1d5db;
+  /* gray-300 */
+  --badge-bg: #f3f4f6;
+  /* gray-100 */
+  --badge-fg: #111827;
+
+  /* Brand Colors */
+  --brand-accent: oklch(70.4% 0.191 22.216);
+  /* The prominent red */
+
+  /* Specific chunky variables for light mode */
+  --chunky-border: #252525;
+  --chunky-shadow: #252525;
+  --social-chunky-border: #252525;
+  --social-chunky-shadow: #252525;
+  --exp-chunky-border: #252525;
+  --exp-chunky-shadow: #252525;
+
+  --ring-color: #252525;
+  --invert-icon: 0;
+  --radius: 0.75rem;
+  --transition: all 0.2s ease-in-out;
+}
+
+[data-theme="dark"] {
+  --bg-color: oklch(14.5% 0 0);
+  --foreground: oklch(98.5% 0 0);
+  --card-bg: oklch(20.5% 0 0);
+  --card-foreground: oklch(98.5% 0 0);
+  --border-color: oklch(100% 0 0 / 0.1);
+  --badge-bg: oklch(26.9% 0 0);
+  --badge-fg: oklch(98.5% 0 0);
+
+  /* Chunky vars vanish in dark mode for most things... */
+  --chunky-border: var(--border-color);
+  --chunky-shadow: transparent;
+
+  /* ...but remain for social icons and experience cards in dark mode (white version) */
+  --social-chunky-border: #ffffff;
+  --social-chunky-shadow: #ffffff;
+  --exp-chunky-border: #ffffff;
+  --exp-chunky-shadow: #ffffff;
+
+  --brand-accent: oklch(70.4% 0.191 22.216);
+  --ring-color: oklch(55.6% 0 0);
+  --invert-icon: 1;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--bg-color);
+  background-image: url("https://nth.credenz.co.in/spiderverse.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--foreground);
+  line-height: 1.4;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+  padding: 1rem 1rem 3rem 1rem;
+  /* Added extra bottom padding for mobile scroll */
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Bento Container */
+.bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  max-width: 1650px;
+  /* Widened to fill left/right space */
+  width: 98%;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+/* Base Card Style */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 0.75rem;
+  border: 1px solid var(--chunky-border);
+  padding: 1rem;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+[data-theme="light"] .card {
+  border-width: 2px;
+  box-shadow: 4px 4px 0px 0px var(--chunky-shadow);
+}
+
+[data-theme="dark"] .card {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-hover:hover {
+  border-color: var(--ring-color);
+}
+
+[data-theme="dark"] .card-hover:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* 1. Stats Card (The Red One) */
+.card-stats {
+  background-color: var(--brand-accent) !important;
+  color: #000;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+[data-theme="light"] .card-stats {
+  border: 2px solid #252525 !important;
+  box-shadow: 6px 6px 0px 0px #252525 !important;
+}
+
+[data-theme="dark"] .card-stats {
+  box-shadow: none !important;
+}
+
+.card-stats .stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-stats .stat-item {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #252525;
+  box-shadow: 3px 3px 0 0 #252525;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: "Geist Mono", monospace;
+  transition: all 0.2s ease-in-out;
+}
+
+.card-stats .stat-item:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 #252525;
+}
+
+.stats-labels {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.stats-labels .badge {
+  background: #ffffff;
+  color: #000000;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #252525;
+  box-shadow: 3px 3px 0 0 #252525;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: "Geist Mono", monospace;
+  transition: all 0.2s ease-in-out;
+}
+
+.stats-labels .badge:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 #252525;
+}
+
+/* 2. Projects Card */
+.card-projects {
+  padding: 0;
+  justify-content: stretch;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Changed to 3 cols to form taller vertical list that scrolls vertically */
+  gap: 0.5rem;
+  padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+}
+
+.projects-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.project-btn {
+  background-color: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0.5rem;
+  /* Increased vertical padding to make it rectangular */
+  min-height: 80px;
+  /* Enforce a minimum height for standard rectangular shape */
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--card-foreground);
+  text-align: center;
+  border: 1px solid var(--exp-chunky-border);
+  box-shadow: 3px 3px 0 0 var(--exp-chunky-shadow);
+  border-radius: var(--radius);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.project-title-btn {
+  /* Removed grid-row: span 2 to keep it the same size as the other project tiles */
+  background-color: var(--foreground);
+  color: var(--bg-color);
+  font-weight: 700;
+  border: 1px solid var(--foreground);
+  box-shadow: 4px 4px 0 0 var(--brand-accent);
+}
+
+.project-title-btn:hover {
+  transform: translate(2px, 2px);
+  /* Override inheritance to keep it proportionate to the new shadow */
+  box-shadow: 2px 2px 0 0 var(--brand-accent);
+}
+
+.project-title-btn:active {
+  transform: translate(4px, 4px);
+  /* Override inheritance to crush the shadow entirely */
+  box-shadow: 0 0 0 0 var(--brand-accent);
+}
+
+[data-theme="dark"] .project-title-btn {
+  background-color: var(--foreground);
+  color: var(--bg-color);
+  border: 1px solid var(--foreground);
+  box-shadow: 4px 4px 0 0 var(--brand-accent);
+}
+
+
+.project-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--exp-chunky-shadow);
+}
+
+.project-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--exp-chunky-shadow);
+}
+
+/* 3. Socials */
+.socials-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.75rem;
+}
+
+.social-btn {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--social-chunky-border);
+  box-shadow: 3px 3px 0 0 var(--social-chunky-shadow);
+  font-size: 1.25rem;
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.social-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--social-chunky-shadow);
+}
+
+.social-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--social-chunky-shadow);
+}
+
+.social-img {
+  width: 28px;
+  height: 28px;
+  filter: invert(var(--invert-icon));
+  object-fit: contain;
+}
+
+.social-btn i {
+  color: var(--foreground);
+}
+
+/* 4. Profile Card */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-avatar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-title h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.profile-title .handle {
+  color: oklch(55.6% 0 0);
+  /* Muted foreground */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  font-family: "Geist Mono", monospace;
+}
+
+.profile-badges {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-badge {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius);
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.icon-badge:first-child {
+  border-color: #facc15;
+  /* Yellow 400 for trophy */
+  color: #facc15;
+}
+
+.profile-bio {
+  flex-grow: 1;
+  padding-bottom: 0.5rem;
+}
+
+.profile-bio p {
+  font-weight: 500;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-bio .bio-desc {
+  color: oklch(55.6% 0 0);
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #000000;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+[data-theme="dark"] .btn {
+  border-color: transparent;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. Experience Block */
+.card-experience-container {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-experience-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-experience-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.exp-item {
+  background-color: var(--card-bg);
+  border: 1px solid var(--exp-chunky-border);
+  box-shadow: 3px 3px 0 0 var(--exp-chunky-shadow);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  transition: all 0.2s ease-in-out;
+  flex-shrink: 0;
+}
+
+.exp-item:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--exp-chunky-shadow);
+}
+
+.exp-item:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--exp-chunky-shadow);
+}
+
+.exp-item h4 {
+  font-size: 0.85rem;
+  margin-bottom: 0.1rem;
+}
+
+.exp-company {
+  font-size: 0.8rem;
+  color: var(--foreground);
+}
+
+.exp-desc {
+  font-size: 0.7rem;
+  color: oklch(55.6% 0 0);
+  font-family: "Geist Mono", monospace;
+  margin-top: 0.15rem;
+}
+
+/* 6. Learning/Github */
+.card-learning {
+  justify-content: center;
+}
+
+.learning-section h3 {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.learning-list {
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+.learning-list li {
+  margin-bottom: 0.3rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.learning-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--foreground);
+  font-weight: bold;
+}
+
+/* 7. Tech Stack */
+.tech-title {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.tech-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.tech-col {
+  position: relative;
+}
+
+/* Divider borders for columns 1 and 2 */
+.tech-col:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -0.75rem;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+.tech-col h4 {
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+  font-size: 0.85rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tags span {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.tech-tags span:hover {
+  border-color: var(--foreground);
+}
+
+/* 8. Image Area */
+.card-image {
+  padding: 0;
+  min-height: 250px;
+  /* Force minimum height for mobile */
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%2Fid%2FOIP.UmRGRhKq4z_bpKfj5JDndAAAAA%3Fr%3D0%26pid%3DApi&f=1&ipt=6d5a50834bbfbf0b7f6e08ba1e9a51918f2f7e5e3c2125369fa0ad55d58a4cb0&ipo=images");
+  background-size: cover;
+  background-position: center;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+}
+
+.image-overlay p {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+/* --- GRID LAYOUT DESKTOP --- */
+@media (min-width: 1024px) {
+  .bento {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    gap: 1rem;
+    height: max(calc(100vh - 2rem), 750px);
+    padding-bottom: 0;
+  }
+
+  .card-stats {
+    grid-column: 1 / 4;
+    /* Spans 3 columns */
+    grid-row: 1 / 3;
+  }
+
+  .card-projects {
+    grid-column: 4 / 10;
+    /* Spans 6 columns (starts exactly where Stats ends) */
+    grid-row: 1 / 3;
+  }
+
+  .card-socials {
+    grid-column: 10 / 13;
+    /* Spans 3 columns (starts exactly where Projects ends) */
+    grid-row: 1 / 2;
+  }
+
+  .card-learning {
+    grid-column: 1 / 4;
+    /* Spans 3 columns (matches Stats) */
+    grid-row: 3 / 5;
+  }
+
+  .card-profile {
+    grid-column: 4 / 10;
+    /* Spans 6 columns (matches Projects) */
+    grid-row: 3 / 5;
+  }
+
+  .card-experience-container {
+    grid-column: 10 / 13;
+    /* Spans 3 columns (matches Socials) */
+    grid-row: 2 / 5;
+  }
+
+  .card-tech {
+    grid-column: 1 / 10;
+    /* Spans 9 columns (matches Stats + Projects exactly) */
+    grid-row: 5 / 7;
+  }
+
+  .card-image {
+    grid-column: 10 / 13;
+    /* Spans 3 columns (matches Socials & Experience) */
+    grid-row: 5 / 7;
+    min-height: auto;
+  }
+}
+
+/* Medium screens */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-projects,
+  .card-profile,
+  .card-tech {
+    grid-column: 1 / -1;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tech-col:not(:last-child)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tech-columns {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .tech-col:not(:last-child)::after {
+    display: none;
+  }
+}
