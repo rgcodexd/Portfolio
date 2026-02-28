@@ -584,6 +584,84 @@ a {
   border-color: var(--foreground);
 }
 
+/* 7. Certificates (Replaced Tech) */
+.card-certificates {
+  padding: 0;
+  justify-content: stretch;
+}
+
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+}
+
+.certificates-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.certificates-grid::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.certificate-btn {
+  background-color: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0.5rem;
+  min-height: 80px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--card-foreground);
+  text-align: center;
+  border: 1px solid var(--exp-chunky-border);
+  box-shadow: 3px 3px 0 0 var(--exp-chunky-shadow);
+  border-radius: var(--radius);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.certificate-title-btn {
+  background-color: var(--foreground);
+  color: var(--bg-color);
+  font-weight: 700;
+  border: 1px solid var(--foreground);
+  box-shadow: 4px 4px 0 0 var(--brand-accent);
+}
+
+.certificate-title-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--brand-accent);
+}
+
+.certificate-title-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--brand-accent);
+}
+
+[data-theme="dark"] .certificate-title-btn {
+  background-color: var(--foreground);
+  color: var(--bg-color);
+  border: 1px solid var(--foreground);
+  box-shadow: 4px 4px 0 0 var(--brand-accent);
+}
+
+.certificate-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--exp-chunky-shadow);
+}
+
+.certificate-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--exp-chunky-shadow);
+}
+
 /* 8. Image Area */
 .card-image {
   padding: 0;
@@ -637,7 +715,7 @@ a {
     grid-row: 1 / 2;
   }
 
-  .card-learning {
+  .card-tech-moved {
     grid-column: 1 / 4;
     /* Spans 3 columns (matches Stats) */
     grid-row: 3 / 5;
@@ -655,7 +733,7 @@ a {
     grid-row: 2 / 5;
   }
 
-  .card-tech {
+  .card-certificates {
     grid-column: 1 / 10;
     /* Spans 9 columns (matches Stats + Projects exactly) */
     grid-row: 5 / 7;
@@ -677,11 +755,12 @@ a {
 
   .card-projects,
   .card-profile,
-  .card-tech {
+  .card-certificates {
     grid-column: 1 / -1;
   }
 
-  .projects-grid {
+  .projects-grid,
+  .certificates-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -691,7 +770,9 @@ a {
 }
 
 @media (max-width: 767px) {
-  .projects-grid {
+
+  .projects-grid,
+  .certificates-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
